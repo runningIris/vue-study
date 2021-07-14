@@ -1,10 +1,69 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+<ul id="demo">
+  <div>(You can double click on an item to turn it into a folder.)</div>
+  <tree-item
+    class="item"
+    :item="state.treeData"
+    @make-folder="makeFolder"
+    @add-item="addItem"
+  ></tree-item>
+</ul>
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import { reactive } from 'vue'
+import TreeItem from './components/TreeItem.vue'
+
+export default {
+  components: { TreeItem },
+  setup(props) {
+    const state = reactive({ 
+      treeData: {
+        name: 'My Tree',
+        children: [
+          { name: 'hello' },
+          { name: 'wat' },
+          {
+            name: 'child folder',
+            children: [
+              {
+                name: 'child folder',
+                children: [{ name: 'hello' }, { name: 'wat' }]
+              },
+              { name: 'hello' },
+              { name: 'wat' },
+              {
+                name: 'child folder',
+                children: [
+                  { name: 'hello' },
+                  { name: 'wat' }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    })
+
+    const addItem = (item) => {
+      item.children.push({
+        name: 'new stuff'
+      })
+    }
+
+    const makeFolder = (item) => {
+      console.log('making folders')
+      item.children = []
+      addItem(item)
+    }
+
+    return {
+      state,
+      makeFolder,
+      addItem
+    }
+  },
+}
 
 </script>
 
@@ -16,5 +75,20 @@ import HelloWorld from './components/HelloWorld.vue'
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body {
+  font-family: Menlo, Consolas, monospace;
+  color: #444;
+}
+.item {
+  cursor: pointer;
+}
+.bold {
+  font-weight: bold;
+}
+ul {
+  padding-left: 1em;
+  line-height: 1.5em;
+  list-style-type: dot;
 }
 </style>

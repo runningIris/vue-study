@@ -1,13 +1,5 @@
 <template>
   <h1>{{ msg }}</h1>
-  <div class="h-20"/>
-  <div>count is: {{ state.count }}</div>
-  <div class="h-20"/>
-  <div class="content">
-    <div class="btn" @click="subtract">-</div>
-    <div class="gap"/>
-    <div class="btn" @click="add">+</div>
-  </div>
 </template>
 
 <script setup>
@@ -16,11 +8,6 @@ import { defineProps, reactive } from 'vue'
 defineProps({
   msg: String
 })
-
-const state = reactive({ count: 0 })
-
-const add = () => state.count++
-const subtract = () => state.count--
 
 </script>
 
