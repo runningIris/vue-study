@@ -4,6 +4,7 @@
 
 <script>
 import { computed, reactive } from 'vue'
+import {valueToPoint} from './util'
 export default {
   props: {
     stat: Object,

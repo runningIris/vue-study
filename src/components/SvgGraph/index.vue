@@ -1,19 +1,21 @@
 <template>
-<div>
-  <svg width="200" height="200">
-    <polygraph :stats="state.stats"></polygraph>
-  </svg>
-  <div v-for="stat in state.stats" :key="stat">
-    <label>{{ stat.label }}</label>
-    <input v-model="stat.value" type="range" min="0" max="100"/>
-    <span>{{stat.value}}</span>
-    <button @click="remove(stat)">X</button>
+<div style="display: flex; align-items: center; justify-content: space-around;">
+  <div>
+    <svg width="200" height="200">
+      <polygraph :stats="state.stats"></polygraph>
+    </svg>
+    <div v-for="stat in state.stats" :key="stat">
+      <label>{{ stat.label }}</label>
+      <input v-model="stat.value" type="range" min="0" max="100"/>
+      <span>{{stat.value}}</span>
+      <button @click="remove(stat)">X</button>
+    </div>
+    <form id="add">
+      <input name="newLabel" v-model="state.newLabel"/>
+      <button @click="add">Add a Stat</button>
+    </form>
   </div>
-  <form id="add">
-    <input name="newLabel" v-model="state.newLabel"/>
-    <button @click="add">Add a Stat</button>
-  </form>
-  <pre id="raw">{{state.stats}}</pre>
+  <pre>{{state.stats}}</pre>
 </div>
 </template>
 
@@ -23,6 +25,7 @@ import Polygraph from './Polygraph.vue'
 
 export default {
   name: 'svg-graph',
+  components: {Polygraph},
   setup() {
     const state = reactive({
       newLabel: '',

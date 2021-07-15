@@ -15,9 +15,11 @@
 <script>
 import { computed, reactive } from 'vue'
 import AxisLabel from './AxisLabel.vue'
+import {valueToPoint} from './util'
 
 export default {
   name: 'polygraph',
+  components: {AxisLabel},
   props: {
     stats: Array
   },
@@ -33,4 +35,3 @@ export default {
   },
 }
 </script>
-
